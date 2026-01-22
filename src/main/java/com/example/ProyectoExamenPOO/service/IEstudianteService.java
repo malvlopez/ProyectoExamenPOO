@@ -10,4 +10,5 @@ public interface IEstudianteService {
     public void saveEstudiante(Estudiante estudiante);
     public void deleteEstudiante(Long id);
     public Estudiante updateEstudiante(Long id, Estudiante datosNuevos);
+    public Estudiante findBydni(String dni);
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.example.ProyectoExamenPOO.exception.ResourceNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EstudianteService implements IEstudianteService {
@@ -33,7 +32,16 @@ public class EstudianteService implements IEstudianteService {
         if (estudianteRepository.existsByEmail(estudiante.getEmail())) {
             throw new BadRequestException("El email " + estudiante.getEmail() + " ya está registrado.");
         }
+        if (estudianteRepository.existsBydni(estudiante.getDni())) {
+            throw new BadRequestException("La cédula " + estudiante.getDni() + " ya está registrada.");
+        }
         estudianteRepository.save(estudiante);
+    }
+
+    @Override
+    public Estudiante findBydni(String dni) {
+        return estudianteRepository.findBydni(dni).orElseThrow(() ->
+                new ResourceNotFoundException("Estudiante no encontrado con cédula: " + dni));
     }
 
     @Override
@@ -49,6 +57,9 @@ public class EstudianteService implements IEstudianteService {
         Estudiante estudianteExistente = estudianteRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Estudiante no encontrado con ID: " + id));
 
+        if (datosNuevos.getDni() != null) {
+            estudianteExistente.setDni(datosNuevos.getDni());
+        }
         if (datosNuevos.getName() != null) {
             estudianteExistente.setName(datosNuevos.getName());
         }

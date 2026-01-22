@@ -1,5 +1,6 @@
 package com.example.ProyectoExamenPOO.controller;
 
+import com.example.ProyectoExamenPOO.exception.ResourceNotFoundException;
 import com.example.ProyectoExamenPOO.model.entity.Estudiante;
 import com.example.ProyectoExamenPOO.service.IEstudianteService;
 import jakarta.validation.Valid;
@@ -26,6 +27,11 @@ public class EstudianteController {
     @GetMapping("/Estudiantes/{id}")
     public Estudiante getById(@PathVariable Long id) {
         return estudianteService.findEstudiante(id);
+    }
+
+    @GetMapping("/Estudiantes/cedula/{dni}")
+    public Estudiante getBydni(@PathVariable String dni) {
+        return estudianteService.findBydni(dni);
     }
 
     @PostMapping("/Estudiantes")

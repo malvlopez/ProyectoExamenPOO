@@ -1,9 +1,6 @@
 package com.example.ProyectoExamenPOO.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
@@ -17,8 +14,13 @@ import jakarta.validation.constraints.*;
 @Entity
 public class Estudiante {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Recomendado para H2/MySQL
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true, nullable = false)
+    @NotBlank(message = "La cédula es obligatoria")
+    @Pattern(regexp = "^[0-9]{10}$", message = "La cédula debe contener exactamente 10 dígitos numéricos")
+    private String dni;
 
     @NotBlank(message = "El nombre es obligatorio")
     @Size(min = 2, max = 50, message = "El nombre debe tener entre 2 y 50 caracteres")
