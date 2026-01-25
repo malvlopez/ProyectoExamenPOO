@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Estudiantes - Proyecto Final</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="notification-container"></div>
+
+<h1>Panel de Administración de Estudiantes</h1>
+
+<div class="main-container">
+    <section class="form-section">
+        <h2 id="formTitle">Registrar Estudiante</h2>
+        <form id="studentForm">
+            <input type="hidden" id="studentId">
+            <input type="text" id="dni" placeholder="Cédula (10 dígitos)" required pattern="[0-9]{10}" title="Debe contener exactamente 10 números">
+            <input type="text" id="firstName" placeholder="Nombres" required>
+            <input type="text" id="lastName" placeholder="Apellidos" required>
+            <input type="number" id="age" placeholder="Edad (16-60)" required min="16" max="60">
+            <input type="email" id="email" placeholder="Correo electrónico" required>
+            <input type="text" id="career" placeholder="Carrera" required>
+
+            <div id="formActions">
+                <button type="submit" id="submitBtn" class="btn-save">Guardar Estudiante</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="table-section">
+        <div class="table-header">
+            <h2>Lista de Estudiantes</h2>
+            <div class="search-panel">
+                <label for="searchInput">Buscar:</label>
+                <input type="text" id="searchInput" placeholder="Escriba aquí...">
+                <select id="searchType">
+                    <option value="dni">DNI</option>
+                    <option value="name">Nombre</option>
+                </select>
+            </div>
+            <button id="refreshBtn" class="btn-refresh">🔄 Refrescar</button>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th onclick="sortStudentsBy('dni')">DNI ⬍</th>
+                <th onclick="sortStudentsBy('name')">Nombre ⬍</th>
+                <th onclick="sortStudentsBy('career')">Carrera ⬍</th>
+                <th style="text-align: center;">Acciones</th>
+            </tr>
+            </thead>
+            <tbody id="studentTableBody"></tbody>
+        </table>
+    </section>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>

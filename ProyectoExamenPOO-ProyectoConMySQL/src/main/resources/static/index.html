@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Estudiantes - Proyecto Final</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h1>Panel de Administración de Estudiantes</h1>
+
+<div class="main-container">
+    <section class="form-section">
+        <h2>Registrar Estudiante</h2>
+        <form id="formEstudiante">
+            <input type="text" id="dni" placeholder="Cédula (10 dígitos)" required>
+            <input type="text" id="name" placeholder="Nombre" required>
+            <input type="text" id="lastName" placeholder="Apellido" required>
+            <input type="number" id="age" placeholder="Edad (16-60)" required>
+            <input type="email" id="email" placeholder="Correo electrónico" required>
+            <input type="text" id="career" placeholder="Carrera" required>
+            <button type="submit" class="btn-save">Guardar Estudiante</button>
+
+            <input type="hidden" id="estudianteId">
+
+        </form>
+    </section>
+
+    <section class="table-section">
+        <div class="table-header">
+            <h2>Lista de Estudiantes</h2>
+            <div class="search-panel">
+                <label for="inputBuscar">Buscar:</label>
+                <input type="text" id="inputBuscar" placeholder="Escriba aquí...">
+                <select id="tipoBusqueda">
+                    <option value="dni">DNI</option>
+                    <option value="nombre">Nombre</option>
+                </select>
+            </div>
+            <button id="btnCargar" class="btn-refresh">🔄 Refrescar</button>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>DNI</th>
+                <th>Nombre Completo</th>
+                <th>Carrera</th>
+                <th style="text-align: center;">Acciones</th>
+            </tr>
+            </thead>
+            <tbody id="tablaEstudiantes"></tbody>
+        </table>
+    </section>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
