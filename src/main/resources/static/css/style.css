@@ -1,4 +1,4 @@
-/* --- VARIABLES Y BASES --- */
+/* --- 1. VARIABLES Y CONFIGURACIÓN BASE --- */
 :root {
     --primary: #4a90e2;
     --success: #28a745;
@@ -6,49 +6,222 @@
     --danger: #e74c3c;
     --dark: #333;
     --light-bg: #f8f9fa;
+    --white: #ffffff;
+    --shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
-body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; color: var(--dark); }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    padding: 20px;
+    color: var(--dark);
+    line-height: 1.6;
+}
 
-/* --- LAYOUT PRINCIPAL --- */
-.main-container { display: flex; gap: 25px; max-width: 1200px; margin: auto; align-items: flex-start; }
-.form-section, .table-section { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
-.form-section { flex: 1; position: sticky; top: 20px; }
-.table-section { flex: 2.5; }
+h1 {
+    text-align: center;
+    color: var(--dark);
+    margin-bottom: 30px;
+}
 
-/* --- FORMULARIO --- */
-h2 { margin-top: 0; color: var(--primary); border-bottom: 2px solid #eee; padding-bottom: 10px; }
-form input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+/* --- 2. LAYOUT PRINCIPAL (Dos Columnas) --- */
+.main-container {
+    display: flex;
+    gap: 25px;
+    max-width: 1300px;
+    margin: auto;
+    align-items: flex-start;
+}
+
+.form-section {
+    flex: 1;
+    background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 20px;
+}
+
+.table-section {
+    flex: 2.5;
+    background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+/* --- 3. FORMULARIO Y INPUTS --- */
+h2 {
+    margin-top: 0;
+    color: var(--primary);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+/* Validación visual de HTML5 */
+form input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+form input:focus:invalid {
+    border-color: var(--danger);
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.2);
+}
+
+#formActions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* --- 4. BOTONES --- */
+button {
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    border: none;
+}
 
 .btn-save {
-    width: 100%; border: none; padding: 14px; color: white; border-radius: 6px; font-weight: bold; cursor: pointer;
-    background: linear-gradient(135deg, var(--success) 0%, #218838 100%); transition: 0.3s;
+    width: 100%;
+    padding: 14px;
+    color: white;
+    background: linear-gradient(135deg, var(--success) 0%, #218838 100%);
 }
-.btn-save.editing { background: linear-gradient(135deg, var(--warning) 0%, #d35400 100%); }
-.btn-save:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
-/* --- TABLA Y BÚSQUEDA --- */
-.table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
-.search-panel { display: flex; align-items: center; gap: 10px; background: var(--light-bg); padding: 10px 15px; border-radius: 8px; }
-.search-panel input, .search-panel select { padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
+.btn-save.editing {
+    background: linear-gradient(135deg, var(--warning) 0%, #d35400 100%);
+}
 
-table { width: 100%; border-collapse: collapse; }
-th { background: var(--primary); color: white; padding: 12px; text-align: left; }
-td { padding: 12px; border-bottom: 1px solid #eee; }
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    filter: brightness(1.1);
+}
 
-/* --- ACCIONES --- */
-.actions-container { display: flex; gap: 10px; justify-content: center; }
-.btn-edit, .btn-delete, .btn-refresh { border: none; cursor: pointer; border-radius: 5px; transition: 0.3s; padding: 8px 12px; }
-.btn-edit { background: var(--warning); color: white; }
-.btn-delete { background: var(--danger); color: white; }
-.btn-refresh { background: var(--primary); color: white; }
-.btn-edit:hover, .btn-delete:hover, .btn-refresh:hover { filter: brightness(90%); }
+.btn-cancel {
+    width: 100%;
+    padding: 12px;
+    color: white;
+    background: #6c757d;
+}
 
-/* --- NOTIFICACIONES (TOAST) --- */
-#notification-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
-.toast { background: var(--dark); color: white; padding: 16px 24px; border-radius: 8px; margin-bottom: 10px;
-         animation: slideIn 0.4s ease-out; border-left: 6px solid; }
+.btn-cancel:hover {
+    background: #5a6268;
+}
+
+.btn-refresh {
+    background: var(--primary);
+    color: white;
+    padding: 10px 18px;
+}
+
+/* --- 5. TABLA Y BÚSQUEDA --- */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.search-panel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--light-bg);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.search-panel input, .search-panel select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: var(--primary);
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* --- 6. ACCIONES EN TABLA --- */
+.actions-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-edit { background: var(--warning); color: white; padding: 8px 12px; }
+.btn-delete { background: var(--danger); color: white; padding: 8px 12px; }
+
+.btn-edit:hover, .btn-delete:hover, .btn-refresh:hover {
+    filter: brightness(90%);
+    transform: scale(1.05);
+}
+
+/* --- 7. NOTIFICACIONES (TOAST) --- */
+#notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    background: var(--dark);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    animation: slideIn 0.4s ease-out;
+    border-left: 6px solid;
+    min-width: 250px;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
 .toast.success { border-color: var(--success); }
 .toast.error { border-color: var(--danger); }
 
-@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+button:disabled {
+    background: #ccc !important;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}

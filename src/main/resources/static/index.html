@@ -7,22 +7,25 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div id="notification-container"></div>
+
 <h1>Panel de Administración de Estudiantes</h1>
 
 <div class="main-container">
     <section class="form-section">
-        <h2>Registrar Estudiante</h2>
-        <form id="formEstudiante">
-            <input type="text" id="dni" placeholder="Cédula (10 dígitos)" required>
-            <input type="text" id="name" placeholder="Nombre" required>
-            <input type="text" id="lastName" placeholder="Apellido" required>
-            <input type="number" id="age" placeholder="Edad (16-60)" required>
+        <h2 id="formTitle">Registrar Estudiante</h2>
+        <form id="studentForm">
+            <input type="hidden" id="studentId">
+            <input type="text" id="dni" placeholder="Cédula (10 dígitos)" required pattern="[0-9]{10}" title="Debe contener exactamente 10 números">
+            <input type="text" id="firstName" placeholder="Nombres" required>
+            <input type="text" id="lastName" placeholder="Apellidos" required>
+            <input type="number" id="age" placeholder="Edad (16-60)" required min="16" max="60">
             <input type="email" id="email" placeholder="Correo electrónico" required>
             <input type="text" id="career" placeholder="Carrera" required>
-            <button type="submit" class="btn-save">Guardar Estudiante</button>
 
-            <input type="hidden" id="estudianteId">
-
+            <div id="formActions">
+                <button type="submit" id="submitBtn" class="btn-save">Guardar Estudiante</button>
+            </div>
         </form>
     </section>
 
@@ -30,14 +33,14 @@
         <div class="table-header">
             <h2>Lista de Estudiantes</h2>
             <div class="search-panel">
-                <label for="inputBuscar">Buscar:</label>
-                <input type="text" id="inputBuscar" placeholder="Escriba aquí...">
-                <select id="tipoBusqueda">
+                <label for="searchInput">Buscar:</label>
+                <input type="text" id="searchInput" placeholder="Escriba aquí...">
+                <select id="searchType">
                     <option value="dni">DNI</option>
-                    <option value="nombre">Nombre</option>
+                    <option value="name">Nombre</option>
                 </select>
             </div>
-            <button id="btnCargar" class="btn-refresh">🔄 Refrescar</button>
+            <button id="refreshBtn" class="btn-refresh">🔄 Refrescar</button>
         </div>
         <table>
             <thead>
@@ -48,7 +51,7 @@
                 <th style="text-align: center;">Acciones</th>
             </tr>
             </thead>
-            <tbody id="tablaEstudiantes"></tbody>
+            <tbody id="studentTableBody"></tbody>
         </table>
     </section>
 </div>
