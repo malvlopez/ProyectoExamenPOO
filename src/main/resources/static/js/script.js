@@ -184,11 +184,19 @@ document.getElementById('searchInput').oninput = (e) => {
         e.target.value = e.target.value.replace(/[^0-9]/g, '').substring(0, 10);
     }
 
-    const filtered = masterStudentList.filter(s => {
-        if (type === 'dni') return s.dni.startsWith(e.target.value);
-        const fullName = `${s.name} ${s.lastName}`.toLowerCase();
-        return fullName.includes(criteria);
-    });
+const filtered = masterStudentList.filter(s => {
+    if (type === 'dni') {
+        return s.dni.startsWith(e.target.value);
+    }
+
+    if (type === 'career') {
+        return s.career.toLowerCase().includes(criteria);
+    }
+
+    // name
+    const fullName = `${s.name} ${s.lastName}`.toLowerCase();
+    return fullName.includes(criteria);
+});
     renderStudentTable(filtered);
 };
 
