@@ -1,160 +1,284 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "Módulo predeterminado",
-    "description": "",
-    "version": "1.0.0"
-  },
-  "tags": [],
-  "paths": {
-    "/apiEstudiantes/Estudiantes": {
-      "get": {
-        "summary": "Obtener Todos los Estudiantes",
-        "deprecated": false,
+    "info": {
+        "name": "Coso",
         "description": "",
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                },
-                "example": [
-                  {
-                    "id": 1,
-                    "name": "Adonis",
-                    "lastName": "Lopez",
-                    "age": 20,
-                    "email": "adoni@example.com",
-                    "career": "TSDS"
-                  },
-                  {
-                    "id": 2,
-                    "name": "Erika",
-                    "lastName": "Lopez",
-                    "age": 31,
-                    "email": "Erika@example.com",
-                    "career": "Pedagogia"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "security": []
-      },
-      "post": {
-        "summary": "Añadir Estudiante",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              },
-              "example": {
-                "dni": "1752195782",
-                "name": "Adonis",
-                "lastName": "Lopez",
-                "age": 20,
-                "email": "adonis.lopez@epn.edu.ec",
-                "career": "TSDS"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                },
-                "example": "Estudiante creado exitosamente"
-              }
-            }
-          }
-        },
-        "security": []
-      }
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
-    "/apiEstudiantes/Estudiantes/3": {
-      "get": {
-        "summary": "Obtener un estudiante por id",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "200": {
+    "item": [
+        {
+            "name": "Raíz",
             "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {}
+            "item": [
+                {
+                    "name": "UpdateFull con PUT",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "PUT",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"dni\": \"1234567810\",\r\n    \"name\": \"Usuario actualizado\",\r\n    \"lastName\": \"Prueba exitosa\",\r\n    \"age\": 35,\r\n    \"email\": \"correo@ejemploexito.com\",\r\n    \"career\": \"TSRT\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/apiEstudiantes/Estudiantes/9",
+                            "path": [
+                                "apiEstudiantes",
+                                "Estudiantes",
+                                "9"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "8080",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
                 },
-                "example": {
-                  "timestamp": "2026-01-21T20:19:22.244198",
-                  "message": "Estudiante no encontrado con ID: 3",
-                  "details": "uri=/apiEstudiantes/Estudiantes/3"
-                }
-              }
-            }
-          }
-        },
-        "security": []
-      }
-    },
-    "/apiEstudiantes/Estudiantes/cedula/1752195782": {
-      "get": {
-        "summary": "Buscar Estudiante Por cedula",
-        "deprecated": false,
-        "description": "",
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {}
+                {
+                    "name": "Update con PATCH",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "PATCH",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"dni\": \"1234567812\",\r\n    \"name\": \"Usuario actualizado\",\r\n    \"lastName\": \"Prueba Patch\",\r\n    \"age\": 35,\r\n    \"email\": \"correo@ejemploexito.com\",\r\n    \"career\": \"TSRT\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/apiEstudiantes/Estudiantes/9",
+                            "path": [
+                                "apiEstudiantes",
+                                "Estudiantes",
+                                "9"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "8080",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
                 },
-                "example": {
-                  "id": 2,
-                  "dni": "1752195782",
-                  "name": "Adonis",
-                  "lastName": "Lopez",
-                  "age": 20,
-                  "email": "adonis.lopez@epn.edu.ec",
-                  "career": "TSDS"
+                {
+                    "name": "Eliminar Estudiante",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "DELETE",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/apiEstudiantes/Estudiantes/10",
+                            "path": [
+                                "apiEstudiantes",
+                                "Estudiantes",
+                                "10"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "8080",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Obtener Todos los Estudiantes",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "GET",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/apiEstudiantes/Estudiantes",
+                            "path": [
+                                "apiEstudiantes",
+                                "Estudiantes"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "8080",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Añadir Estudiante",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"dni\": \"1234567890\",\n    \"name\": \"Usuario Update\",\n    \"lastName\": \"Prueba Put\",\n    \"age\": 20,\n    \"email\": \"correo@ejemplo.com\",\n    \"career\": \"TSDS\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/apiEstudiantes/Estudiantes",
+                            "path": [
+                                "apiEstudiantes",
+                                "Estudiantes"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "8080",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Obtener un estudiante por id",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "GET",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/apiEstudiantes/Estudiantes/4",
+                            "path": [
+                                "apiEstudiantes",
+                                "Estudiantes",
+                                "4"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "8080",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
+                },
+                {
+                    "name": "Buscar Estudiante Por cedula",
+                    "description": "",
+                    "event": [],
+                    "auth": {},
+                    "request": {
+                        "auth": {},
+                        "method": "GET",
+                        "body": {},
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8080/apiEstudiantes/Estudiantes/cedula/1752195782",
+                            "path": [
+                                "apiEstudiantes",
+                                "Estudiantes",
+                                "cedula",
+                                "1752195782"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "protocol": "http",
+                            "port": "8080",
+                            "query": [],
+                            "variable": []
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "strictSSL": false,
+                        "followRedirects": true
+                    }
                 }
-              }
-            }
-          }
-        },
-        "security": []
-      }
-    }
-  },
-  "components": {
-    "schemas": {},
-    "responses": {},
-    "securitySchemes": {}
-  },
-  "servers": [],
-  "security": []
+            ],
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [],
+                        "type": "text/javascript",
+                        "packages": {}
+                    }
+                }
+            ],
+            "auth": {}
+        }
+    ],
+    "variable": [],
+    "event": [],
+    "auth": {}
 }
