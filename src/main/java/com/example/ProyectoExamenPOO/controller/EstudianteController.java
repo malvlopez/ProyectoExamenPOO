@@ -4,11 +4,8 @@ import com.example.ProyectoExamenPOO.exception.ResourceNotFoundException;
 import com.example.ProyectoExamenPOO.model.entity.Estudiante;
 import com.example.ProyectoExamenPOO.service.IEstudianteService;
 import jakarta.validation.Valid;
-<<<<<<< HEAD
 import org.springframework.http.ResponseEntity;
-=======
 import org.springframework.http.HttpStatus;
->>>>>>> 06e5783058e1f8e9432b6c488ef9c751f1649783
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +27,8 @@ public class EstudianteController {
     }
 
     @GetMapping("/Estudiantes/{id}")
-    public Estudiante getById(@PathVariable Long id) {
-        return estudianteService.findEstudiante(id);
+    public ResponseEntity<Estudiante> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(estudianteService.findEstudiante(id));
     }
 
     @GetMapping("/buscar")
@@ -48,14 +45,13 @@ public class EstudianteController {
     }
 
     @PostMapping("/Estudiantes")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String save(@Valid @RequestBody Estudiante estudiante){
+    public ResponseEntity<String> save(@Valid @RequestBody Estudiante estudiante){
         estudianteService.saveEstudiante(estudiante);
-        return "Estudiante creado exitosamente";
+        return new ResponseEntity<>("Estudiante creado exitosamente", HttpStatus.CREATED);
     }
 
     @PatchMapping("/Estudiantes/{id}")
-    public Estudiante update(@PathVariable Long id, @Valid @RequestBody Estudiante estudiante){
+    public Estudiante update(@PathVariable Long id, @RequestBody Estudiante estudiante){
         return estudianteService.updateEstudiante(id, estudiante);
     }
 
@@ -65,12 +61,10 @@ public class EstudianteController {
     }
 
     @DeleteMapping("/Estudiantes/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         estudianteService.deleteEstudiante(id);
-        return "Estudiante eliminado";
+        return ResponseEntity.noContent().build();
     }
-
 
 
     @GetMapping("/")

@@ -206,55 +206,36 @@ async function deleteStudentRequest(id) {
 
 // 6. BÚSQUEDA EN TIEMPO REAL
 async function performSearch() {
-    const value = document.getElementById('searchInput').value.trim();
+    const searchInput = document.getElementById('searchInput');
+    const value = searchInput.value.trim();
     const type = document.getElementById('searchType').value;
 
-<<<<<<< HEAD
     if (value === "") {
         renderStudentTable(masterStudentList);
         return;
     }
 
     try {
-        const paramName = type === 'dni' ? 'dni' : (type === 'career' ? 'carrera' : 'nombre');
-        const response = await fetch(`http://localhost:8080/apiEstudiantes/buscar?${paramName}=${encodeURIComponent(value)}`);
+            const paramName = type === 'dni' ? 'dni' : (type === 'career' ? 'carrera' : 'nombre');
+            // USAR ESTA URL CON PARAMS:
+            const response = await fetch(`http://localhost:8080/apiEstudiantes/buscar?${paramName}=${encodeURIComponent(value)}`);
 
-        if (!response.ok) {
+            if (!response.ok) {
+                renderStudentTable([]);
+                return;
+            }
+
+            const data = await response.json();
+            renderStudentTable(Array.isArray(data) ? data : [data]);
+        } catch (error) {
+            console.error("Error en la búsqueda:", error);
             renderStudentTable([]);
-            return;
         }
-
-        const data = await response.json();
-        renderStudentTable(Array.isArray(data) ? data : [data]);
-    } catch (error) {
-        console.error("Error en búsqueda:", error);
-        renderStudentTable([]);
-    }
 }
 
+// Asignar el evento al input
 document.getElementById('searchInput').oninput = performSearch;
-=======
-    if (type === 'dni' || type == 'id') {
-        e.target.value = e.target.value.replace(/[^0-9]/g, '').substring(0, 10);
-    }
 
-const filtered = masterStudentList.filter(s => {
-    if (type === 'dni') {
-        return s.dni.startsWith(e.target.value);
-    }
-    if (type === 'id'){
-        return s.id.toString() === e.target.value;
-    }
-    if (type === 'career') {
-        return s.career.toLowerCase().includes(criteria);
-    }
-
-    const fullName = `${s.name} ${s.lastName}`.toLowerCase();
-    return fullName.includes(criteria);
-});
-    renderStudentTable(filtered);
-};
->>>>>>> 06e5783058e1f8e9432b6c488ef9c751f1649783
 
 // AYUDANTES
 function clearForm() {
