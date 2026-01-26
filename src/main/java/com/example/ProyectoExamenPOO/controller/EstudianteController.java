@@ -4,6 +4,7 @@ import com.example.ProyectoExamenPOO.exception.ResourceNotFoundException;
 import com.example.ProyectoExamenPOO.model.entity.Estudiante;
 import com.example.ProyectoExamenPOO.service.IEstudianteService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +30,17 @@ public class EstudianteController {
         return estudianteService.findEstudiante(id);
     }
 
-    @GetMapping("/Estudiantes/cedula/{dni}")
-    public Estudiante getBydni(@PathVariable String dni) {
-        return estudianteService.findBydni(dni);
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Estudiante>> search(
+            @RequestParam(required = false) String dni,
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) String carrera) {
+
+        if (dni != null) return ResponseEntity.ok(estudianteService.findBydni(dni));
+        if (nombre != null) return ResponseEntity.ok(estudianteService.findByName(nombre));
+        if (carrera != null) return ResponseEntity.ok(estudianteService.findByCareer(carrera));
+
+        return ResponseEntity.ok(estudianteService.getEstudiante());
     }
 
     @PostMapping("/Estudiantes")
@@ -55,6 +64,8 @@ public class EstudianteController {
         estudianteService.deleteEstudiante(id);
         return "Estudiante eliminado";
     }
+
+
 
     @GetMapping("/")
     public String home() {

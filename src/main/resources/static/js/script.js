@@ -5,19 +5,28 @@ let currentSortDirection = 'asc';
 
 // 1. CARGA INICIAL
 async function fetchStudents() {
-    try {
-        console.log("Solicitando datos actualizados a MySQL...");
-        const response = await fetch(API_URL);
+    const searchInput = document.getElementById('searchInput').value.trim();
 
-        if (!response.ok) throw new Error("Error en la respuesta del servidor");
-
-        masterStudentList = await response.json();
-        renderStudentTable(masterStudentList);
-
-        console.log("Tabla actualizada con éxito.");
-    } catch (error) {
-        showToast("No se pudo refrescar la lista", "error");
+    if (searchInput !== "") {
+        await performSearch();
+        updateMasterListSilent();
+    } else {
+        try {
+            const response = await fetch("http://localhost:8080/apiEstudiantes/Estudiantes");
+            if (!response.ok) throw new Error();
+            masterStudentList = await response.json();
+            renderStudentTable(masterStudentList);
+        } catch (error) {
+            showToast("Error al conectar con el servidor", "error");
+        }
     }
+}
+
+async function updateMasterListSilent() {
+    try {
+        const response = await fetch("http://localhost:8080/apiEstudiantes/Estudiantes");
+        if (response.ok) masterStudentList = await response.json();
+    } catch (e) { }
 }
 
 // 2. RENDERIZADO DE TABLA
@@ -176,29 +185,33 @@ async function deleteStudentRequest(id) {
 }
 
 // 6. BÚSQUEDA EN TIEMPO REAL
-document.getElementById('searchInput').oninput = (e) => {
-    const criteria = e.target.value.toLowerCase();
+async function performSearch() {
+    const value = document.getElementById('searchInput').value.trim();
     const type = document.getElementById('searchType').value;
 
-    if (type === 'dni') {
-        e.target.value = e.target.value.replace(/[^0-9]/g, '').substring(0, 10);
+    if (value === "") {
+        renderStudentTable(masterStudentList);
+        return;
     }
 
-const filtered = masterStudentList.filter(s => {
-    if (type === 'dni') {
-        return s.dni.startsWith(e.target.value);
-    }
+    try {
+        const paramName = type === 'dni' ? 'dni' : (type === 'career' ? 'carrera' : 'nombre');
+        const response = await fetch(`http://localhost:8080/apiEstudiantes/buscar?${paramName}=${encodeURIComponent(value)}`);
 
-    if (type === 'career') {
-        return s.career.toLowerCase().includes(criteria);
-    }
+        if (!response.ok) {
+            renderStudentTable([]);
+            return;
+        }
 
-    // name
-    const fullName = `${s.name} ${s.lastName}`.toLowerCase();
-    return fullName.includes(criteria);
-});
-    renderStudentTable(filtered);
-};
+        const data = await response.json();
+        renderStudentTable(Array.isArray(data) ? data : [data]);
+    } catch (error) {
+        console.error("Error en búsqueda:", error);
+        renderStudentTable([]);
+    }
+}
+
+document.getElementById('searchInput').oninput = performSearch;
 
 // AYUDANTES
 function clearForm() {

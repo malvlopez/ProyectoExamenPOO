@@ -39,9 +39,40 @@ public class EstudianteService implements IEstudianteService {
     }
 
     @Override
-    public Estudiante findBydni(String dni) {
-        return estudianteRepository.findBydni(dni).orElseThrow(() ->
-                new ResourceNotFoundException("Estudiante no encontrado con cédula: " + dni));
+    public List<Estudiante> findBydni(String dni) {
+        List<Estudiante> estudiantes = estudianteRepository.findByDniStartingWith(dni);
+        if (estudiantes.isEmpty()) {
+            throw new ResourceNotFoundException("No existen coincidencias con la cédula: " + dni);
+        }
+        return estudiantes;
+    }
+
+    public List<Estudiante> findByName(String texto) {
+        String[] partes = texto.trim().split("\\s+");
+        List<Estudiante> estudiantes;
+
+        if (partes.length >= 2) {
+            estudiantes = estudianteRepository.findByNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(partes[0], partes[1]);
+
+            if (estudiantes.isEmpty()) {
+                estudiantes = estudianteRepository.findByNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(partes[1], partes[0]);
+            }
+        } else {
+            estudiantes = estudianteRepository.findByNameStartingWithIgnoreCaseOrLastNameStartingWithIgnoreCase(texto, texto);
+        }
+
+        if (estudiantes.isEmpty()) {
+            throw new ResourceNotFoundException("No existen estudiantes que coincidan con: " + texto);
+        }
+        return estudiantes;
+    }
+    @Override
+    public List<Estudiante> findByCareer(String career) {
+        List<Estudiante> estudiantes = estudianteRepository.findByCareerStartingWithIgnoreCase(career);
+        if (estudiantes.isEmpty()) {
+            throw new ResourceNotFoundException("No existen estudiantes de la carrera: " + career);
+        }
+        return estudiantes;
     }
 
     @Override
