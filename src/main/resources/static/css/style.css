@@ -173,6 +173,7 @@ th {
 td {
     padding: 12px 15px;
     border-bottom: 1px solid #eee;
+    vertical-align: middle;
 }
 
 /* --- 6. ACCIONES EN TABLA --- */
@@ -224,4 +225,17 @@ button:disabled {
 @keyframes slideIn {
     from { transform: translateX(100%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
+}
+
+.badge-id {
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 0.85em;
+    border: 1px solid #dee2e6;
+    display: inline-block;
+    line-height: 1;
 }
