@@ -4,7 +4,11 @@ import com.example.ProyectoExamenPOO.exception.ResourceNotFoundException;
 import com.example.ProyectoExamenPOO.model.entity.Estudiante;
 import com.example.ProyectoExamenPOO.service.IEstudianteService;
 import jakarta.validation.Valid;
+<<<<<<< HEAD
 import org.springframework.http.ResponseEntity;
+=======
+import org.springframework.http.HttpStatus;
+>>>>>>> 06e5783058e1f8e9432b6c488ef9c751f1649783
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +48,7 @@ public class EstudianteController {
     }
 
     @PostMapping("/Estudiantes")
+    @ResponseStatus(HttpStatus.CREATED)
     public String save(@Valid @RequestBody Estudiante estudiante){
         estudianteService.saveEstudiante(estudiante);
         return "Estudiante creado exitosamente";
@@ -60,6 +65,7 @@ public class EstudianteController {
     }
 
     @DeleteMapping("/Estudiantes/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public String delete(@PathVariable Long id){
         estudianteService.deleteEstudiante(id);
         return "Estudiante eliminado";

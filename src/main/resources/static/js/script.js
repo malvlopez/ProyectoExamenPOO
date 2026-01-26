@@ -37,19 +37,37 @@ function renderStudentTable(students) {
     students.forEach(student => {
         const row = document.createElement('tr');
         row.innerHTML = `
+            <td><span class="badge-id">#${student.id}</span></td>
             <td>${student.dni}</td>
             <td>${student.name} ${student.lastName}</td>
             <td>${student.career}</td>
             <td>
                 <div class="actions-container">
                     <button class="btn-edit" title="Editar">✏️</button>
-                    <button class="btn-delete" title="Eliminar">🗑️</button>
+                    <button class="btn-delete" id="del-${student.id}" title="Eliminar">🗑️</button>
                 </div>
             </td>
         `;
 
         row.querySelector('.btn-edit').onclick = () => prepareEditForm(student);
-        row.querySelector('.btn-delete').onclick = () => deleteStudentRequest(student.id);
+
+        const delBtn = row.querySelector(`#del-${student.id}`);
+        delBtn.onclick = () => {
+            if (delBtn.classList.contains('confirming')) {
+                deleteStudentRequest(student.id);
+            } else {
+                delBtn.textContent = "¿Seguro?";
+                delBtn.classList.add('confirming');
+                delBtn.style.background = "#2c3e50";
+                setTimeout(() => {
+                    if (delBtn) {
+                        delBtn.textContent = "🗑️";
+                        delBtn.classList.remove('confirming');
+                        delBtn.style.background = "var(--danger)";
+                    }
+                }, 3000);
+            }
+        };
 
         tableBody.appendChild(row);
     });
@@ -169,18 +187,20 @@ document.getElementById('studentForm').onsubmit = async (e) => {
 
 // 5. SOLICITUD DE ELIMINACIÓN
 async function deleteStudentRequest(id) {
-    if (confirm("¿Está seguro de eliminar este registro?")) {
-        try {
-            const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-            if (response.ok) {
-                showToast("Estudiante eliminado satisfactoriamente");
-                fetchStudents();
-            } else {
-                showToast("No se pudo eliminar el estudiante", "error");
-            }
-        } catch (error) {
-            showToast("Error al conectar con el servidor", "error");
+    try {
+        const response = await fetch(`${API_URL}/${id}`, {
+            method: 'DELETE'
+        });
+
+        // 204 No Content es un éxito (response.ok)
+        if (response.ok) {
+            showToast("Estudiante eliminado correctamente", "success");
+            fetchStudents();
+        } else {
+            showToast("Error: No se pudo eliminar el registro", "error");
         }
+    } catch (error) {
+        showToast("Error de conexión con el servidor", "error");
     }
 }
 
@@ -189,6 +209,7 @@ async function performSearch() {
     const value = document.getElementById('searchInput').value.trim();
     const type = document.getElementById('searchType').value;
 
+<<<<<<< HEAD
     if (value === "") {
         renderStudentTable(masterStudentList);
         return;
@@ -212,6 +233,28 @@ async function performSearch() {
 }
 
 document.getElementById('searchInput').oninput = performSearch;
+=======
+    if (type === 'dni' || type == 'id') {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '').substring(0, 10);
+    }
+
+const filtered = masterStudentList.filter(s => {
+    if (type === 'dni') {
+        return s.dni.startsWith(e.target.value);
+    }
+    if (type === 'id'){
+        return s.id.toString() === e.target.value;
+    }
+    if (type === 'career') {
+        return s.career.toLowerCase().includes(criteria);
+    }
+
+    const fullName = `${s.name} ${s.lastName}`.toLowerCase();
+    return fullName.includes(criteria);
+});
+    renderStudentTable(filtered);
+};
+>>>>>>> 06e5783058e1f8e9432b6c488ef9c751f1649783
 
 // AYUDANTES
 function clearForm() {

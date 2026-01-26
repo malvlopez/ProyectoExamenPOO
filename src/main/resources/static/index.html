@@ -39,6 +39,7 @@
                     <option value="dni">DNI</option>
                     <option value="name">Nombre</option>
                     <option value="career">Carrera</option>
+                    <option value="id">ID Sistema</option>
                 </select>
             </div>
             <button id="refreshBtn" class="btn-refresh">🔄 Refrescar</button>
@@ -46,6 +47,7 @@
         <table>
             <thead>
             <tr>
+                <th onclick="sortStudentBy('id')">ID</th>
                 <th onclick="sortStudentsBy('dni')">DNI ⬍</th>
                 <th onclick="sortStudentsBy('name')">Nombre ⬍</th>
                 <th onclick="sortStudentsBy('career')">Carrera ⬍</th>
